@@ -1,9 +1,13 @@
 import React from 'react'
 import Classes from './BackDrop.module.css'
 const backDrop = (props)=>{
+    let attatchedClasses = [Classes.BackDrop]
+    if(props.attatchedClasses){
+       attatchedClasses = [Classes.BackDrop, props.attatchedClasses]
+     }
     return (
-        props.show? <div className={Classes.BackDrop}
-         onClick={props.modalClosed}></div>:null
+        props.show? <div className={attatchedClasses.join(' ')}
+         onClick={props.clicked}></div>:null
     );
 }
 
