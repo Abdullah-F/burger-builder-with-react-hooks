@@ -29,9 +29,8 @@ class Orders extends Component {
                 price={order.price} />
         }));
     }
+    
     render() {
-        console.log("state")
-        console.log(this.state)
         return (
             <div>
                 {this.getOrders()}
