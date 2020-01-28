@@ -98,7 +98,9 @@ class BurgerBuilder extends Component{
             console.log(errors);
                 this.setState( { loading: false, purchasing: false } );
         });*/
-        this.props.history.push('/checkout')
+        var queryString = Object.keys(this.state.ingredients)
+            .map(key => key + '=' + this.state.ingredients[key]).join('&');
+        this.props.history.push(`/checkout?${queryString}`);
     }
 
     disabledInfo = ()=>{
