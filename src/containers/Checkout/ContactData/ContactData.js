@@ -75,12 +75,10 @@ class ContactData extends Component{
         this.setState({loading: true});
         Axios.post('/orders.json', order)
         .then(response=>{
-            console.log(response);
             this.setState( { loading: false } );
             this.props.history.push("/")
         })
         .catch(errors=>{
-            console.log(errors);
                 this.setState( { loading: false} );
         });
     }
