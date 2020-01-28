@@ -8,7 +8,7 @@ const order=(props)=>{
     }
     ingredients = ingredients.map((ingre) => {
         return `${ingre.name} (${ingre.amount})`;
-    }).join(' ')
+    }).join(' ');
     return (
         <div className={Classes.Order}>
             <p>ingredients: {ingredients}</p>
