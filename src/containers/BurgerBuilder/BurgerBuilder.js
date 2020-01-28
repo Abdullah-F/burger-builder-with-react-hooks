@@ -23,6 +23,7 @@ class BurgerBuilder extends Component{
     }
 
     componentDidMount(){
+        console.log(this.props)
         Axios.get('/ingredients.json')
              .then(response=> this.setState({ingredients: response.data}))
              .catch(error=> console.log(error));
@@ -74,7 +75,7 @@ class BurgerBuilder extends Component{
     }
 
     continuePurchaseHandler=()=>{
-        const order ={
+        /*const order ={
             ingredients: this.state.ingredients,
             price: this.state.totalPrice,
             customer:{
@@ -96,7 +97,8 @@ class BurgerBuilder extends Component{
         .catch(errors=>{
             console.log(errors);
                 this.setState( { loading: false, purchasing: false } );
-        });
+        });*/
+        this.props.history.push('/checkout')
     }
 
     disabledInfo = ()=>{
