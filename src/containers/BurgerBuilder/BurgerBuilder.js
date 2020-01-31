@@ -7,9 +7,8 @@ import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary'
 import Axios from '../../axios-orders'
 import Spinner from '../../components/UI/Spinner/Spinner'
 import WithErrorHandler from '../../hoc/withErrorHandler/withErrorHandler'
-import * as actionTypes from '../../store/actions'
 import {connect} from 'react-redux'
-
+import * as actionCreators from '../../store/actions/index'
 class BurgerBuilder extends Component {
 
     state = {
@@ -17,12 +16,12 @@ class BurgerBuilder extends Component {
         loading: false
     }
 
-    componentDidMount() {
+/*    componentDidMount() {
         Axios.get('/ingredients.json')
             .then(response => this.setState({ ingredients: response.data }))
             .catch(error => error);
     }
-
+*/
     purchaseHandler = () => {
         this.setState({ purchasing: true })
     }
@@ -103,8 +102,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps =(dispatch)=>{
     return {
-        onAddIngredient:(type) => dispatch({type: actionTypes.ADD_INGREDIENT, ingredientType:type}),
-        onRemoveIngredient:(type) => dispatch({type: actionTypes.REMOVE_INGREDIENT, ingredientType:type}),
+        onAddIngredient:(type) => dispatch(actionCreators.addIngredient(type)),
+        onRemoveIngredient:(type) => dispatch(actionCreators.removeIngredient(type)),
     }
 }
 
