@@ -1,9 +1,10 @@
 import React, { Component } from "react";
-import Button from '../../../components/UI/Button/Button'
-import Classes from './ContactData.module.css'
-import Axios from '../../../axios-orders'
-import Spinner from '../../../components/UI/Spinner/Spinner'
-import Input from '../../../components/UI/Input/Input'
+import Button from '../../../components/UI/Button/Button';
+import Classes from './ContactData.module.css';
+import Axios from '../../../axios-orders';
+import Spinner from '../../../components/UI/Spinner/Spinner';
+import Input from '../../../components/UI/Input/Input';
+import { connect } from 'react-redux';
 class ContactData extends Component{
     
     state = {
@@ -128,4 +129,10 @@ class ContactData extends Component{
     }
 }
 
-export default ContactData;
+const mapStateToProps = (state)=>{
+    return {
+        price: state.totalPrice,
+        ingredients: state.ingredients,
+    }
+}
+export default connect(mapStateToProps)(ContactData);

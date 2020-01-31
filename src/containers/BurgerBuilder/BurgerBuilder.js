@@ -32,10 +32,7 @@ class BurgerBuilder extends Component {
     }
 
     continuePurchaseHandler = () => {
-        var queryString = Object.keys(this.props.ingredients)
-            .map(key => key + '=' + this.props.ingredients[key]).join('&');
-        queryString = `${queryString}&price=${this.props.totalPrice}`
-        this.props.history.push(`/checkout?${queryString}`);
+        this.props.history.push('/checkout');
     }
 
     disabledInfo = () => {
