@@ -5,8 +5,10 @@ import Spinner from '../../components/UI/Spinner/Spinner'
 import Classes from './Auth.module.css'
 import { connect } from 'react-redux';
 import * as actionCreators from '../../store/actions/index'
+
 class Auth extends Component {
     state = {
+        singUp: true,
         authForm: {
             email: {
                 elementType: 'input',
@@ -40,7 +42,12 @@ class Auth extends Component {
         event.preventDefault()
         const email = this.state.authForm.email.value;
         const password = this.state.authForm.password.value;
-        this.props.onAuth({email: email, password: password});
+
+        if (this.state.singUp) {
+            this.props.onSignUp({ email: email, password: password });
+        } else {
+            this.props.onSignIn({ email: email, password: password })
+        }
     }
 
 
@@ -70,19 +77,32 @@ class Auth extends Component {
         return form;
     }
 
+    switchHandler = () => {
+        this.setState({ singUp: !this.state.singUp })
+    }
+
     render() {
-        console.log('[Auth Render] state :', this.state)
         return (
             <div className={Classes.Auth}>
                 {this.getForm()}
+                <Button buttonType='Danger' clicked={this.switchHandler}>
+                    {this.state.singUp ? 'Siwtch to Login' : 'Switch To Singn Up'}
+                </Button>
             </div>
         );
     }
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapStateToProps = (state) => {
     return {
-        onAuth: data => dispatch(actionCreators.auth(data))
+        loading: state.auth.loading,
     }
 }
-export default connect(null, mapDispatchToProps)(Auth);
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onSignUp: data => dispatch(actionCreators.authSignUp(data)),
+        onSignIn: data => dispatch(actionCreators.authSignIn(data)),
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Auth);

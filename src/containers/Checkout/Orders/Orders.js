@@ -7,7 +7,7 @@ import { connect } from 'react-redux'
 
 class Orders extends Component {
     componentDidMount() {
-        this.props.onOrdersFetch();
+        this.props.onOrdersFetch(this.props.token);
     }
 
     getOrders() {
@@ -30,11 +30,12 @@ class Orders extends Component {
 const mapStateToProps = (state)=>{
     return {
         orders: state.order.orders,
+        token: state.auth.token,
     }
 }
 const mapDispatchToProps = (dispatch)=>{
     return {
-        onOrdersFetch: () => dispatch(actionCreators.fetchOrders())
+        onOrdersFetch: (token) => dispatch(actionCreators.fetchOrders(token))
     }
 }
 
