@@ -31,3 +31,9 @@ export const fetchIngredients = () => {
             .catch(error => error);
     }
 }
+
+export const building =()=>{
+    return {
+        type: actionTypes.BUILDING,
+    }
+}

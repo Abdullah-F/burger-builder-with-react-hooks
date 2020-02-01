@@ -15,7 +15,7 @@ const reducer = (state = intialState, action) => {
         case (actionTypes.PURCHASE_BURGER_START):
             return {
                 ...state,
-                loading: true, 
+                loading: true,
             }
         case (actionTypes.PURCHASE_BURGER_SUCCESS):
             return {

@@ -5,6 +5,7 @@ import Spinner from '../../components/UI/Spinner/Spinner'
 import Classes from './Auth.module.css'
 import { connect } from 'react-redux';
 import * as actionCreators from '../../store/actions/index'
+import { Redirect } from 'react-router';
 
 class Auth extends Component {
     state = {
@@ -74,6 +75,10 @@ class Auth extends Component {
         if (this.props.loading) {
             form = <Spinner />
         }
+        if(this.props.isAuthenticated){
+            form = <Redirect to={this.props.isBuilding? '/checkout': '/'}/>
+            console.log('[Auth Redirection]',form, this.props)
+        }
         return form;
     }
 
@@ -96,6 +101,8 @@ class Auth extends Component {
 const mapStateToProps = (state) => {
     return {
         loading: state.auth.loading,
+        isAuthenticated: state.auth.token !== null,
+        isBuilding: state.burgerBuilder.building,
     }
 }
 
@@ -105,4 +112,5 @@ const mapDispatchToProps = (dispatch) => {
         onSignIn: data => dispatch(actionCreators.authSignIn(data)),
     }
 }
+
 export default connect(mapStateToProps, mapDispatchToProps)(Auth);

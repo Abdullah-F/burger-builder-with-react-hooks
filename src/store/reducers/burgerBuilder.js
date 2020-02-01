@@ -10,6 +10,7 @@ const INGREDIENTS_PRICES ={
 const initialState = {
     ingredients:null,
     totalPrice: 4,
+    building: false,
 }
 const reducer = (state= initialState, action) => {
     if(actionTypes.ADD_INGREDIENT === action.type){
@@ -55,6 +56,13 @@ const reducer = (state= initialState, action) => {
             ...state,
             ingredients: action.ingredients,
             totalPrice: 4,
+        }
+    }
+
+    if(actionTypes.BUILDING === action.type){
+        return {
+            ...state,
+            building: true,
         }
     }
     return state;
