@@ -7,21 +7,19 @@ import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary'
 import Axios from '../../axios-orders'
 import Spinner from '../../components/UI/Spinner/Spinner'
 import WithErrorHandler from '../../hoc/withErrorHandler/withErrorHandler'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 import * as actionCreators from '../../store/actions/index'
 class BurgerBuilder extends Component {
 
     state = {
         purchasing: false,
-        loading: false
     }
 
-/*    componentDidMount() {
-        Axios.get('/ingredients.json')
-            .then(response => this.setState({ ingredients: response.data }))
-            .catch(error => error);
+    componentDidMount() {
+        console.log(this.props);
+        this.props.onFetchIngredients();
     }
-*/
+
     purchaseHandler = () => {
         this.setState({ purchasing: true })
     }
@@ -31,6 +29,7 @@ class BurgerBuilder extends Component {
     }
 
     continuePurchaseHandler = () => {
+        this.props.onPurchaseInit()
         this.props.history.push('/checkout');
     }
 
@@ -58,9 +57,6 @@ class BurgerBuilder extends Component {
 
         if (!this.props.ingredients) {
             content = null;
-        }
-        if (this.state.loading) {
-            content = (<Spinner />)
         }
         return content;
     }
@@ -95,15 +91,17 @@ class BurgerBuilder extends Component {
 }
 const mapStateToProps = (state) => {
     return {
-        ingredients: state.ingredients,
-        totalPrice: state.totalPrice,
+        ingredients: state.burgerBuilder.ingredients,
+        totalPrice: state.burgerBuilder.totalPrice,
     }
 }
 
-const mapDispatchToProps =(dispatch)=>{
+const mapDispatchToProps = (dispatch) => {
     return {
-        onAddIngredient:(type) => dispatch(actionCreators.addIngredient(type)),
-        onRemoveIngredient:(type) => dispatch(actionCreators.removeIngredient(type)),
+        onAddIngredient: (type) => dispatch(actionCreators.addIngredient(type)),
+        onRemoveIngredient: (type) => dispatch(actionCreators.removeIngredient(type)),
+        onFetchIngredients: () => dispatch(actionCreators.fetchIngredients()),
+        onPurchaseInit:() => dispatch(actionCreators.purchaseInit()),
     }
 }
 

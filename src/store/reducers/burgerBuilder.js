@@ -8,12 +8,7 @@ const INGREDIENTS_PRICES ={
 }
 
 const initialState = {
-    ingredients: {
-        salad: 0,
-        meat: 0,
-        bacon: 0,
-        cheese: 0,
-    },
+    ingredients:null,
     totalPrice: 4,
 }
 const reducer = (state= initialState, action) => {
@@ -52,6 +47,14 @@ const reducer = (state= initialState, action) => {
                 ingredients: updatedIngredients,
                 totalPrice: newPrice
             };
+        }
+    }
+
+    if(actionTypes.STORE_INGREDIENTS === action.type){
+        return {
+            ...state,
+            ingredients: action.ingredients,
+            totalPrice: 4,
         }
     }
     return state;
