@@ -13,4 +13,5 @@ export{
 export{
     authSignUp,
     authSignIn,
+    authLogOut,
 } from './auth'

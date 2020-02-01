@@ -28,10 +28,10 @@ export const purchaseInit = () =>{
     }
 }
 
-export const purchaseBurger = (orderData)=>{
+export const purchaseBurger = (orderData, token)=>{
     purchaseBurgerStart()
     return dispatch => {
-        Axios.post('/orders.json', orderData)
+        Axios.post(`/orders.json?auth=${token}`, orderData)
         .then(response=>{
             dispatch(purchaseBurgerSuccess(response.data.name, orderData))
         })
