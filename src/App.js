@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Layout from './hoc/Layout/Layout';
 import BurgerBuilder from './containers/BurgerBuilder/BurgerBuilder';
 import Checkout from './containers/Checkout/Checkout';
@@ -6,7 +6,14 @@ import {Route} from 'react-router-dom'
 import Orders from './containers/Checkout/Orders/Orders';
 import Auth from './containers/Auth/Auth';
 import LogOut from './containers/Auth/LogOut/LogOut'
-function App() {
+import * as actionCreators from './store/actions/index'
+import { connect } from 'react-redux';
+class App extends Component {
+  componentDidMount(){
+    console.log('[APP] props',this.props);
+    this.props.onAuthCheck();
+  }
+  render(){
   return (
     <div >
       <Layout>
@@ -18,6 +25,13 @@ function App() {
       </Layout>
     </div>
   );
+  }
 }
 
-export default App;
+const mapDispatchToProps= (dispatch) => {
+  return {
+    onAuthCheck: () => dispatch(actionCreators.checkAuthStatus()),
+  }
+}
+
+export default connect(null, mapDispatchToProps)(App);

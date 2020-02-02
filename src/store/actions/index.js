@@ -15,4 +15,5 @@ export{
     authSignUp,
     authSignIn,
     authLogOut,
+    checkAuthStatus,
 } from './auth'
