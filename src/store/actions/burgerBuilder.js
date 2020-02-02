@@ -17,7 +17,6 @@ export const removeIngredient = (type) => {
 }
 
 export const storeIngredients = (ingredients) => {
-    console.log('[called do fetch]')
     return {
         type: actionTypes.STORE_INGREDIENTS,
         ingredients: ingredients,

@@ -77,7 +77,6 @@ class Auth extends Component {
         }
         if(this.props.isAuthenticated){
             form = <Redirect to={this.props.isBuilding? '/checkout': '/'}/>
-            console.log('[Auth Redirection]',form, this.props)
         }
         return form;
     }

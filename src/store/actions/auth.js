@@ -34,12 +34,10 @@ export const authSignUp = (data) => {
             authDAta)
             .then(
                 response => {
-                    console.log('[AUTH SINGN UP SUCCESS] response data', response.data)
                     dispatch(authSuccess(response.data))
                 }
             )
             .catch(errors => {
-                console.log('[AUTH SINGN UP FIAL] response error', errors);
                 dispatch(authFail(errors));
             })
     }
@@ -70,7 +68,6 @@ export const authSignIn = (data) => {
             authDAta)
             .then(
                 response => {
-                    console.log('[AUTH SINGN UP SUCCESS] response data', response.data)
                     const expirationDate = new Date(new Date().getTime() + response.data.expiresIn * 1000)
                     localStorage.setItem('token', response.data.idToken);
                     localStorage.setItem('expirationDate', expirationDate)
@@ -80,7 +77,6 @@ export const authSignIn = (data) => {
                 }
             )
             .catch(errors => {
-                console.log('[AUTH SINGN UP FIAL] response error', errors);
                 dispatch(authFail(errors));
             })
     }
@@ -89,18 +85,15 @@ export const authSignIn = (data) => {
 
 
 export const checkAuthStatus = (data) => {
-    console.log('[check auth status]')
     return dispatch => {
         const token = localStorage.getItem('token');
         const expirationDate = new Date(localStorage.getItem('expirationDate'));
         const userId = localStorage.getItem('userId');
         const intervalTime = Math.floor((expirationDate-new Date())/1000);
-        console.log(token, expirationDate, userId);
         if (!token) {
             dispatch(authLogOut());
         } else {
             if (expirationDate > new Date()) {
-                console.log('[check auth ] else', expirationDate > new Date(),expirationDate,new Date())
                 dispatch(authSuccess({localId: userId, idToken: token}));
                 dispatch(logOutAfterTokenExpires(intervalTime));
             }
