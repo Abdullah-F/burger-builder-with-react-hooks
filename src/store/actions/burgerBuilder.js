@@ -1,6 +1,4 @@
 import * as actionTypes from './actionTypes';
-import Axios from '../../axios-orders'
-export const REMOVE_INGREDIENT = 'REMOVE_INGREDIENT'
 
 export const addIngredient = (type) => {
     return {
@@ -24,10 +22,8 @@ export const storeIngredients = (ingredients) => {
 }
 
 export const fetchIngredients = () => {
-    return (dispatch) => {
-        Axios.get('/ingredients.json')
-            .then(response => dispatch(storeIngredients(response.data)))
-            .catch(error => error);
+    return {
+        type: actionTypes.FETCH_INGREDIENTS
     }
 }
 

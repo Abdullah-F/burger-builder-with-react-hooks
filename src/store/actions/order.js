@@ -1,5 +1,4 @@
 import * as acionTypes from './actionTypes'
-import Axios from '../../axios-orders'
 
 export const purchaseBurgerSuccess = (id, orderData)=>{
     return {
@@ -29,15 +28,10 @@ export const purchaseInit = () =>{
 }
 
 export const purchaseBurger = (orderData, token)=>{
-    purchaseBurgerStart()
-    return dispatch => {
-        Axios.post(`/orders.json?auth=${token}`, orderData)
-        .then(response=>{
-            dispatch(purchaseBurgerSuccess(response.data.name, orderData))
-        })
-        .catch(errors =>{
-            dispatch(purchaseBurgerFail(errors))
-        });
+    return {
+        type: acionTypes.PURCHASE_BURGER,
+        orderData: orderData,
+        token: token,
     }
 }
 
@@ -63,18 +57,8 @@ export const fetchOrdersFail = (errors)=>{
 }
 
 export const fetchOrders = (token)=>{
-    return dispatch =>{
-        dispatch(fetchOrdersStart())
-        Axios.get(`/orders.json?auth=${token}`)
-            .then((response) => {
-                const fetchedOrders = []
-                for (const key in response.data) {
-                    fetchedOrders.push({
-                        ...response.data[key],
-                        id: key
-                    })
-                }
-                dispatch(fetchOrdersSucess(fetchedOrders))
-            }).catch((err) => dispatch(fetchOrdersFail))
+    return {
+        type: acionTypes.FETCH_ORDERS,
+        token: token,
     }
 }
