@@ -5,20 +5,20 @@ const INGREDIENTS_PRICES ={
     meat: 0.7,
     bacon: 2,
     cheese: 1.5,
-}
+};
 
 const initialState = {
     ingredients:null,
     totalPrice: 4,
     building: false,
-}
+};
 const reducer = (state= initialState, action) => {
     if(actionTypes.ADD_INGREDIENT === action.type){
         const oldCount = state.ingredients[action.ingredientType];
         const updatedCount = oldCount+1;
         const updatedIngredients = {
             ...state.ingredients
-        }
+        };
         const priceAddition = INGREDIENTS_PRICES[action.ingredientType];
         const oldPrice = state.totalPrice;
         const newPrice = oldPrice + priceAddition;
@@ -36,7 +36,7 @@ const reducer = (state= initialState, action) => {
             const updatedCount = oldCount-1; 
             const updatedIngredients = {
                 ...state.ingredients
-            }
+            };
             updatedIngredients[action.ingredientType] = updatedCount;
             const priceSubtraction = INGREDIENTS_PRICES[action.ingredientType];
             const oldPrice = state.totalPrice;
@@ -56,14 +56,14 @@ const reducer = (state= initialState, action) => {
             ...state,
             ingredients: action.ingredients,
             totalPrice: 4,
-        }
+        };
     }
 
     if(actionTypes.BUILDING === action.type){
         return {
             ...state,
             building: true,
-        }
+        };
     }
     return state;
 }

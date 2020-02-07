@@ -4,7 +4,7 @@ export{
     fetchIngredients,
     building,
     storeIngredients,
-} from './burgerBuilder'
+} from './burgerBuilder';
 
 export{
     purchaseBurger,
@@ -16,7 +16,7 @@ export{
     purchaseBurgerFail,
     purchaseBurgerStart,
     purchaseBurgerSuccess,
-} from './order'
+} from './order';
 
 export{
     authSignUp,
@@ -28,4 +28,4 @@ export{
     authFail,
     authStart,
     logOutAfterTokenExpires,
-} from './auth'
+} from './auth';

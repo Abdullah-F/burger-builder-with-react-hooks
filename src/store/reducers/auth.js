@@ -1,11 +1,11 @@
-import * as actionTypes from '../actions/actionTypes'
+import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
     token: null,
     userId: null,
     errors: null,
     loading: false,
-}
+};
 const reducer = (state = initialState, action) => {
     switch (action.type) {
         case (actionTypes.AUTH_START):
@@ -13,7 +13,7 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 loading: true,
                 errors: null,
-            }
+            };
         case (actionTypes.AUTH_SUCCESS):
             return {
                 ...state,
@@ -21,19 +21,19 @@ const reducer = (state = initialState, action) => {
                 userId: action.data.localId,
                 loading: false,
                 errors: null,
-            }
+            };
         case (actionTypes.AUTH_FAIL):
             return {
                 ...state,
                 loading: false,
                 errors: action.errors,
-            }
+            };
         case (actionTypes.AUTH_LOGOUT):
             return {
                 ...state,
                 token: null,
                 userId: null,
-            }
+            };
         default:
             return state;
 

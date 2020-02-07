@@ -1,17 +1,17 @@
 import { put } from 'redux-saga/effects';
 import * as actionCreators from '../actions/index';
 import { delay } from 'redux-saga/effects';
-import Axios from '../../axios-orders'
+import Axios from '../../axios-orders';
 export function* logoutSaga(action) {
     yield localStorage.removeItem('token');
     yield localStorage.removeItem('expirationDate');
     yield localStorage.removeItem('userId');
 
-    yield put(actionCreators.didLogout())
+    yield put(actionCreators.didLogout());
 }
 
 export function* logOutAfterTokenExpiresSaga(action) {
-    yield delay(action.expiresIn * 1000)
+    yield delay(action.expiresIn * 1000);
     yield put(actionCreators.authLogOut());
 }
 
@@ -20,7 +20,7 @@ export function* authSignInSaga(action) {
     const authDAta = {
         ...action.data,
         returnSecureToken: true,
-    }
+    };
     try {
         const response = yield Axios.post('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDwXQ1RzB5xEJtz0GS2-Pkz1qmn1vsgid4', authDAta)
         const expirationDate = yield new Date(new Date().getTime() + response.data.expiresIn * 1000)
@@ -39,10 +39,10 @@ export function* authSignUpSaga(action) {
     const authDAta = {
         ...action.data,
         returnSecureToken: true,
-    }
+    };
     try {
         const response = yield Axios.post('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDwXQ1RzB5xEJtz0GS2-Pkz1qmn1vsgid4', authDAta)
-        yield put(actionCreators.authSuccess(response.data))
+        yield put(actionCreators.authSuccess(response.data));
     } catch (error) {
         yield put(actionCreators.authFail(error.responce.data.error));
     }
