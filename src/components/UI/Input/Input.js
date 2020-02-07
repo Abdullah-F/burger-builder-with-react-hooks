@@ -1,15 +1,15 @@
-import React from 'react'
-import Classes from './Input.module.css'
+import React from 'react';
+import Classes from './Input.module.css';
 const input = (props)=>{
     let inputElement= null;
     switch(props.elementType){
         case('input'):
           inputElement = <input onChange={props.changed} className={Classes.InputElement} 
-                            {...props.elementConfig} value={props.value}/>
+                            {...props.elementConfig} value={props.value}/>;
           break;
         case('textarea'):
           inputElement = <textarea onChange={props.changed} className={Classes.InputElement} 
-                            {...props.elementConfig} value={props.value}/>
+                            {...props.elementConfig} value={props.value}/>;
           break;
         case('select'):
           inputElement =(
@@ -22,11 +22,11 @@ const input = (props)=>{
                    )
                 })}
               </select>
-          )
+          );
           break;
         default:
             inputElement =  <input onChange={props.changed} className={Classes.InputElement}
-                            {...props.elementConfig} value={props.value}/>
+                            {...props.elementConfig} value={props.value}/>;
     }
     return (
         <div>
