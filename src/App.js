@@ -5,8 +5,8 @@ import Checkout from './containers/Checkout/Checkout';
 import { Route, Switch } from 'react-router-dom'
 import Orders from './containers/Checkout/Orders/Orders';
 import Auth from './containers/Auth/Auth';
-import LogOut from './containers/Auth/LogOut/LogOut'
-import * as actionCreators from './store/actions/index'
+import LogOut from './containers/Auth/LogOut/LogOut';
+import * as actionCreators from './store/actions/index';
 import { connect } from 'react-redux';
 class App extends Component {
   componentDidMount() {
@@ -47,12 +47,12 @@ class App extends Component {
 const mapStateToProps = (state)=>{
   return{
     isAuthenticated: state.auth.token !== null,
-  }
+  };
 }
 const mapDispatchToProps = (dispatch) => {
   return {
     onAuthCheck: () => dispatch(actionCreators.checkAuthStatus()),
-  }
+  };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

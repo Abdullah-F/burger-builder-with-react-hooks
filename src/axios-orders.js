@@ -1,4 +1,4 @@
-import Axios from 'axios'
+import Axios from 'axios';
 
 const instance = Axios.create({
     baseURL:'https://burgerbuilder-9240b.firebaseio.com/'
