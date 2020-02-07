@@ -1,9 +1,9 @@
-import React, { Component } from 'react'
-import Order from '../../../components/Order/Order'
-import Axios from '../../../axios-orders'
-import WithErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler'
-import * as actionCreators from '../../../store/actions/index' 
-import { connect } from 'react-redux'
+import React, { Component } from 'react';
+import Order from '../../../components/Order/Order';
+import Axios from '../../../axios-orders';
+import WithErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler';
+import * as actionCreators from '../../../store/actions/index';
+import { connect } from 'react-redux';
 
 class Orders extends Component {
     componentDidMount() {
@@ -35,7 +35,7 @@ const mapStateToProps = (state)=>{
 }
 const mapDispatchToProps = (dispatch)=>{
     return {
-        onOrdersFetch: (token) => dispatch(actionCreators.fetchOrders(token))
+        onOrdersFetch: (token) => dispatch(actionCreators.fetchOrders(token));
     }
 }
 

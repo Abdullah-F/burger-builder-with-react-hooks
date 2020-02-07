@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import Input from '../../components/UI/Input/Input'
-import Button from '../../components/UI/Button/Button'
-import Spinner from '../../components/UI/Spinner/Spinner'
-import Classes from './Auth.module.css'
+import Input from '../../components/UI/Input/Input';
+import Button from '../../components/UI/Button/Button';
+import Spinner from '../../components/UI/Spinner/Spinner';
+import Classes from './Auth.module.css';
 import { connect } from 'react-redux';
-import * as actionCreators from '../../store/actions/index'
+import * as actionCreators from '../../store/actions/index';
 import { Redirect } from 'react-router';
 
 class Auth extends Component {
@@ -28,7 +28,7 @@ class Auth extends Component {
                 value: ''
             }
         }
-    }
+    };
 
     inputChangedHandler = (event, id) => {
         event.preventDefault();
@@ -36,18 +36,18 @@ class Auth extends Component {
         let updatedFormElement = { ...updatedForm[id] };
         updatedFormElement.value = event.target.value;
         updatedForm[id] = updatedFormElement;
-        this.setState({ authForm: updatedForm })
+        this.setState({ authForm: updatedForm });
     }
 
     submintHandler = (event) => {
-        event.preventDefault()
+        event.preventDefault();
         const email = this.state.authForm.email.value;
         const password = this.state.authForm.password.value;
 
         if (this.state.singUp) {
             this.props.onSignUp({ email: email, password: password });
         } else {
-            this.props.onSignIn({ email: email, password: password })
+            this.props.onSignIn({ email: email, password: password });
         }
     }
 
@@ -58,13 +58,13 @@ class Auth extends Component {
             inputElements.push({
                 id: key,
                 config: this.state.authForm[key]
-            })
+            });
         }
         inputElements = inputElements.map((element) => {
             return <Input changed={(event) => this.inputChangedHandler(event, element.id)} elementType={element.config.elementType}
                 elementConfig={element.config.elementConfig}
                 value={element.config.value} key={element.id} />
-        })
+        });
         let form = (
             <form >
                 {inputElements}
@@ -73,16 +73,16 @@ class Auth extends Component {
         );
 
         if (this.props.loading) {
-            form = <Spinner />
+            form = <Spinner />;
         }
         if(this.props.isAuthenticated){
-            form = <Redirect to={this.props.isBuilding? '/checkout': '/'}/>
+            form = <Redirect to={this.props.isBuilding? '/checkout': '/'}/>;
         }
         return form;
     }
 
     switchHandler = () => {
-        this.setState({ singUp: !this.state.singUp })
+        this.setState({ singUp: !this.state.singUp });
     }
 
     render() {
@@ -102,14 +102,14 @@ const mapStateToProps = (state) => {
         loading: state.auth.loading,
         isAuthenticated: state.auth.token !== null,
         isBuilding: state.burgerBuilder.building,
-    }
+    };
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
         onSignUp: data => dispatch(actionCreators.authSignUp(data)),
         onSignIn: data => dispatch(actionCreators.authSignIn(data)),
-    }
+    };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Auth);

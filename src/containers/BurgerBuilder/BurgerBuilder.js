@@ -1,14 +1,14 @@
-import React, { Component } from 'react'
-import Aux from '../../hoc/Aux/Aux'
-import Burger from '../../components/Burger/Burger'
-import BuildControls from "../../components/Burger/BuildControls/BuildControls"
-import Modal from '../../components/UI/Modal/Modal'
-import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary'
-import Axios from '../../axios-orders'
-import Spinner from '../../components/UI/Spinner/Spinner'
-import WithErrorHandler from '../../hoc/withErrorHandler/withErrorHandler'
-import { connect } from 'react-redux'
-import * as actionCreators from '../../store/actions/index'
+import React, { Component } from 'react';
+import Aux from '../../hoc/Aux/Aux';
+import Burger from '../../components/Burger/Burger';
+import BuildControls from "../../components/Burger/BuildControls/BuildControls";
+import Modal from '../../components/UI/Modal/Modal';
+import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
+import Axios from '../../axios-orders';
+import Spinner from '../../components/UI/Spinner/Spinner';
+import WithErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
+import { connect } from 'react-redux';
+import * as actionCreators from '../../store/actions/index';
 class BurgerBuilder extends Component {
 
     state = {
@@ -21,25 +21,25 @@ class BurgerBuilder extends Component {
 
     purchaseHandler = () => {
         if (this.props.isAuthenticated) {
-            this.setState({ purchasing: true })
+            this.setState({ purchasing: true });
         } else {
             this.props.onBuilding();
-            this.props.onPurchaseInit()
+            this.props.onPurchaseInit();
             this.props.history.push('/auth');
         }
     }
 
     cancelPurchaseHandler = () => {
-        this.setState({ purchasing: false })
+        this.setState({ purchasing: false });
     }
 
     continuePurchaseHandler = () => {
-        this.props.onPurchaseInit()
+        this.props.onPurchaseInit();
         this.props.history.push('/checkout');
     }
 
     disabledInfo = () => {
-        const info = { ...this.props.ingredients }
+        const info = { ...this.props.ingredients };
         for (const key in info) {
             info[key] = info[key] <= 0;
         }
@@ -58,7 +58,7 @@ class BurgerBuilder extends Component {
                 cancel={this.cancelPurchaseHandler}
                 continue={this.continuePurchaseHandler}
                 price={this.props.totalPrice}></OrderSummary>
-        )
+        );
 
         if (!this.props.ingredients) {
             content = null;
@@ -101,7 +101,7 @@ const mapStateToProps = (state) => {
         ingredients: state.burgerBuilder.ingredients,
         totalPrice: state.burgerBuilder.totalPrice,
         isAuthenticated: state.auth.token !== null,
-    }
+    };
 }
 
 const mapDispatchToProps = (dispatch) => {
@@ -111,7 +111,7 @@ const mapDispatchToProps = (dispatch) => {
         onFetchIngredients: () => dispatch(actionCreators.fetchIngredients()),
         onPurchaseInit: () => dispatch(actionCreators.purchaseInit()),
         onBuilding: ()=> dispatch(actionCreators.building()),
-    }
+    };
 }
 
 export default WithErrorHandler(connect(mapStateToProps, mapDispatchToProps)(BurgerBuilder), Axios);
