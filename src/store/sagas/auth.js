@@ -2,6 +2,7 @@ import { put } from 'redux-saga/effects';
 import * as actionCreators from '../actions/index';
 import { delay } from 'redux-saga/effects';
 import Axios from '../../axios-orders';
+
 export function* logoutSaga(action) {
     yield localStorage.removeItem('token');
     yield localStorage.removeItem('expirationDate');
