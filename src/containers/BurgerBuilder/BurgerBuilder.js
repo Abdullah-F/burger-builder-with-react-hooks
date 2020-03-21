@@ -11,10 +11,11 @@ import { connect } from "react-redux";
 import * as actionCreators from "../../store/actions/index";
 const BurgerBuilder = props => {
   const [purchasing, setPurchasing] = useState(false);
+  const { onFetchIngredients } = props;
 
   useEffect(() => {
-    props.onFetchIngredients();
-  }, [props]);
+    onFetchIngredients();
+  }, [onFetchIngredients]);
 
   const purchaseHandler = () => {
     if (props.isAuthenticated) {

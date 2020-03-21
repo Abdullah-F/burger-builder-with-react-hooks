@@ -6,9 +6,10 @@ import * as actionCreators from "../../../store/actions/index";
 import { connect } from "react-redux";
 
 const Orders = props => {
+  const { onOrdersFetch, token } = props;
   useEffect(() => {
-    props.onOrdersFetch(props.token);
-  });
+    onOrdersFetch(token);
+  }, [onOrdersFetch, token]);
 
   function getOrders() {
     return props.orders.map(order => {
