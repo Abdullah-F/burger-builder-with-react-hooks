@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Aux from "../../hoc/Aux/Aux";
 import Burger from "../../components/Burger/Burger";
 import BuildControls from "../../components/Burger/BuildControls/BuildControls";
@@ -18,7 +18,7 @@ const BurgerBuilder = props => {
 
   const purchaseHandler = () => {
     if (props.isAuthenticated) {
-      setPurchasing({ purchasing: true });
+      setPurchasing(true);
     } else {
       props.onBuilding();
       props.onPurchaseInit();
@@ -27,7 +27,7 @@ const BurgerBuilder = props => {
   };
 
   const cancelPurchaseHandler = () => {
-    setPurchasing({ purchasing: false });
+    setPurchasing(false);
   };
 
   const continuePurchaseHandler = () => {
