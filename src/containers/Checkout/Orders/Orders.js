@@ -1,4 +1,4 @@
-import React, { Component, useEffect } from "react";
+import React, { useEffect } from "react";
 import Order from "../../../components/Order/Order";
 import Axios from "../../../axios-orders";
 import WithErrorHandler from "../../../hoc/withErrorHandler/withErrorHandler";
@@ -7,7 +7,7 @@ import { connect } from "react-redux";
 
 const Orders = props => {
   useEffect(() => {
-    props.onOrdersFetch(this.props.token);
+    props.onOrdersFetch(props.token);
   });
 
   function getOrders() {
