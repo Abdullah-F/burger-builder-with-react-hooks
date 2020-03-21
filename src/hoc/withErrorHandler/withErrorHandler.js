@@ -1,57 +1,52 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from "react";
 
-import Modal from '../../components/UI/Modal/Modal';
-import Aux from '../Aux/Aux';
-import Axios from '../../axios-orders';
+import Modal from "../../components/UI/Modal/Modal";
+import Aux from "../Aux/Aux";
+import Axios from "../../axios-orders";
 
 const withErrorHandler = (WrappedComponent, axios) => {
-    return class extends Component {
-        state = {
-            error: null
-        }
+  return props => {
+    const [error, setError] = useState(null);
 
-        constructor(props) {
-            super(props);
-            this.reqInterceptor = axios.interceptors.request.use(req => {
-                this.setState({ error: null });
-                return req;
-            });
-            this.respInterceptor = axios.interceptors.response.use(res => res, error => {
-                this.setState({ error: error });
-            });
+    const reqInterceptor = axios.interceptors.request.use(req => {
+      setError(null);
+      return req;
+    });
+    const respInterceptor = axios.interceptors.response.use(
+      res => res,
+      error => {
+        setError(error);
+      }
+    );
 
-        }
+    useEffect(() => {
+      return () => {
+        Axios.interceptors.request.eject(reqInterceptor);
+        Axios.interceptors.response.eject(respInterceptor);
+      };
+    });
 
-        componentWillUnmount() {
-            Axios.interceptors.request.eject(this.reqInterceptor);
-            Axios.interceptors.response.eject(this.respInterceptor);
-        }
+    const errorConfirmedHandler = () => {
+      setError(null);
+    };
 
-        errorConfirmedHandler = () => {
-            this.setState({ error: null });
-        }
+    const pageContent = () => {
+      let content = <WrappedComponent {...props} />;
+      if (error) {
+        content = <p> {error.message}</p>;
+      }
+      return content;
+    };
 
-        pageContent() {
-            let content = <WrappedComponent {...this.props} />;
-            if (this.state.error) {
-                content = <p> {this.state.error.message}</p>
-            }
-            return content;
-        }
-
-        render() {
-            return (
-                <Aux>
-                    <Modal
-                        show={this.state.error}
-                        modalClosed={this.errorConfirmedHandler}>
-                        {this.state.error ? this.state.error.message : null}
-                    </Modal>
-                    {this.pageContent()}
-                </Aux>
-            );
-        }
-    }
-}
+    return (
+      <Aux>
+        <Modal show={error} modalClosed={errorConfirmedHandler}>
+          {error ? error.message : null}
+        </Modal>
+        {pageContent()}
+      </Aux>
+    );
+  };
+};
 
 export default withErrorHandler;
