@@ -1,35 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 import Modal from "../../components/UI/Modal/Modal";
 import Aux from "../Aux/Aux";
-import Axios from "../../axios-orders";
+import useHttpErrorHandler from "../../hooks/http_error_handler";
 
 const withErrorHandler = (WrappedComponent, axios) => {
   return props => {
-    const [error, setError] = useState(null);
-
-    const reqInterceptor = axios.interceptors.request.use(req => {
-      setError(null);
-      return req;
-    });
-    const respInterceptor = axios.interceptors.response.use(
-      res => res,
-      error => {
-        setError(error);
-      }
-    );
-
-    useEffect(() => {
-      return () => {
-        Axios.interceptors.request.eject(reqInterceptor);
-        Axios.interceptors.response.eject(respInterceptor);
-      };
-    });
-
-    const errorConfirmedHandler = () => {
-      setError(null);
-    };
-
+    const [error, clearError] = useHttpErrorHandler(axios);
     const pageContent = () => {
       let content = <WrappedComponent {...props} />;
       if (error) {
@@ -40,7 +17,7 @@ const withErrorHandler = (WrappedComponent, axios) => {
 
     return (
       <Aux>
-        <Modal show={error} modalClosed={errorConfirmedHandler}>
+        <Modal show={error} modalClosed={clearError}>
           {error ? error.message : null}
         </Modal>
         {pageContent()}
