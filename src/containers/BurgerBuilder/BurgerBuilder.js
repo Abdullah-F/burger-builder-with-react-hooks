@@ -7,7 +7,7 @@ import OrderSummary from "../../components/Burger/OrderSummary/OrderSummary";
 import Axios from "../../axios-orders";
 import Spinner from "../../components/UI/Spinner/Spinner";
 import WithErrorHandler from "../../hoc/withErrorHandler/withErrorHandler";
-import { connect, useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import * as actionCreators from "../../store/actions/index";
 const BurgerBuilder = props => {
   const [purchasing, setPurchasing] = useState(false);
@@ -110,12 +110,4 @@ const BurgerBuilder = props => {
     </Aux>
   );
 };
-const mapStateToProps = state => {
-  return {
-    ingredients: state.burgerBuilder.ingredients,
-    totalPrice: state.burgerBuilder.totalPrice,
-    isAuthenticated: state.auth.token !== null
-  };
-};
-
-export default WithErrorHandler(connect(mapStateToProps)(BurgerBuilder), Axios);
+export default WithErrorHandler(BurgerBuilder, Axios);
